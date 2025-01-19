@@ -10,6 +10,7 @@ import apirest.foroHub.domain.topic.dto.TopicoActualizadoDTO;
 import apirest.foroHub.domain.topic.dto.TopicoDTO;
 import apirest.foroHub.domain.usuario.UsuarioRepository;
 import apirest.foroHub.infra.errores.ValidacionDeIntegridad;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @ResponseBody
 @RequestMapping("/topico")
-//@SecurityRequirement(name="bearer-key")
+@SecurityRequirement(name="bearer-key")
 public class TopicoController {
     @Autowired
     private TopicoRepository topicoRepository;

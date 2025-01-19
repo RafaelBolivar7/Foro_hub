@@ -1,6 +1,5 @@
 package apirest.foroHub.controller;
 
-//import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import apirest.foroHub.domain.respuesta.Respuesta;
 import apirest.foroHub.domain.respuesta.RespuestaRepository;
 import apirest.foroHub.domain.respuesta.RespuestaService;
@@ -11,6 +10,7 @@ import apirest.foroHub.domain.respuesta.dto.RespuestaDTO;
 import apirest.foroHub.domain.topic.TopicoRepository;
 import apirest.foroHub.domain.usuario.UsuarioRepository;
 import apirest.foroHub.infra.errores.ValidacionDeIntegridad;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,6 @@ public class RespuestaController {
     @Autowired
     private RespuestaRepository repository;
 
-
     @PostMapping
     @Transactional
     public ResponseEntity respuestaRegistrada (@RequestBody @Valid RespuestaDTO respuestaDTO) throws ValidacionDeIntegridad {
@@ -44,15 +43,15 @@ public class RespuestaController {
 
     @GetMapping("/all")
     public ResponseEntity<Page<ListarRespuestasDTO>>  listarRespuestas(@PageableDefault(size = 10) Pageable paged){
-        return ResponseEntity.ok(repository.findByActiveTrue(paged).map(ListarRespuestasDTO::new));
+        return ResponseEntity.ok(repository.findByActivoTrue(paged).map(ListarRespuestasDTO::new));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping
     @Transactional
     public ResponseEntity respuestaActualizada(@RequestBody @Valid RespuestaActualizadaDTO respuestaActualizadaDTO){
         Respuesta respuesta=repository.getReferenceById(respuestaActualizadaDTO.id());
         respuesta.respuestaActualizada(respuestaActualizadaDTO);
-        return ResponseEntity.ok(new RespuestaCreadaDTO(respuesta.getId(),respuesta.getSolucion(),
+        return ResponseEntity.ok(new RespuestaCreadaDTO(respuesta.getId(), respuesta.getSolucion(),
                 respuesta.getAutor().getId(),
                 respuesta.getTopico().getId(),
                 respuesta.getFechaCreacion()));
