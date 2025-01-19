@@ -13,14 +13,14 @@ public record RespuestaTopicoDTO(
         Long idUsuario,
         String curso,
         LocalDateTime fecha) {
-    public RespuestaTopicoDTO(Topico topicoId) {
+    public RespuestaTopicoDTO(Topico topico) {
         this(
-                topicoId.getId(),
-                topicoId.getTitulo(),
-                topicoId.getMensaje(),
-                topicoId.getStatus(),
-                topicoId.getAutor().getId(),
-                topicoId.getCurso(),
-                topicoId.getFechaCreacion());
+                topico.getId(),
+                topico.getTitulo(),
+                topico.getMensaje(),
+                topico.getStatus(),
+                topico.getAutor().getId(),
+                topico.getCurso(),
+                topico.getFechaCreacion());
     }
 }

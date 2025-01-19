@@ -1,47 +1,76 @@
-package api.hub.domain.respuesta;
+package apirest.foroHub.domain.respuesta;
 
-import api.hub.domain.topico.Topico;
-import api.hub.domain.usuario.Usuario;
+
+import apirest.foroHub.domain.respuesta.dto.RespuestaActualizadaDTO;
+import apirest.foroHub.domain.topic.Topico;
+import apirest.foroHub.domain.usuario.Usuario;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+
 import java.time.LocalDateTime;
 
 @Entity(name="Respuesta")
 @Table(name = "respuestas")
 @Getter
-@Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class Respuesta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDateTime creationDate;
-    private String solution;
+    private LocalDateTime fechaCreacion;
+    private String solucion;
     @OneToOne
-    @JoinColumn(name="author", referencedColumnName="id")
-    private Usuario author;
+    @JoinColumn(name="autor-id")
+    private Usuario autor;
     @OneToOne
-    @JoinColumn(name="topico", referencedColumnName="id")
+    @JoinColumn(name="topico-id")
     private Topico topico;
-    private boolean active;
+    private boolean activo;
 
-    public Respuesta(Long id, String solution, Usuario usuario, Topico topico, LocalDateTime creationDate) {
+    public Respuesta(Long id, String solution, Usuario usuario, Topico topico, LocalDateTime fechaCreacion) {
         this.id=id;
-        this.solution=solution;
-        this.author=usuario;
+        this.solucion=solution;
+        this.autor=usuario;
         this.topico=topico;
-        this.creationDate=LocalDateTime.now();
+        this.fechaCreacion =LocalDateTime.now();
     }
 
     public void respuestaActualizada(RespuestaActualizadaDTO respuestaActualizadaDTO) {
-        if (respuestaActualizadaDTO.solution() != null){
-            this.solution=respuestaActualizadaDTO.solution();
+        if (respuestaActualizadaDTO.solucion() != null){
+            this.solucion=respuestaActualizadaDTO.solucion();
         }
     }
     public void diactivateResponse(){
 
-        this.active=false;
+        this.activo=false;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public LocalDateTime getFechaCreacion() {
+        return fechaCreacion;
+    }
+
+    public String getSolucion() {
+        return solucion;
+    }
+
+    public Usuario getAutor() {
+        return autor;
+    }
+
+    public Topico getTopico() {
+        return topico;
+    }
+
+    public boolean isActivo() {
+        return activo;
     }
 }

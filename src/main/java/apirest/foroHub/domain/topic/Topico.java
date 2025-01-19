@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
 import java.time.LocalDateTime;
 
 @Entity(name="Topico")
@@ -24,7 +25,7 @@ public class Topico {
     @Enumerated(EnumType.STRING)
     private Status status;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name= "idAutor")
+    @JoinColumn(name= "autor_id")
     private Usuario autor;
     private String curso;
     private boolean activo;
@@ -38,6 +39,38 @@ public class Topico {
         this.status=status;
         this.autor =usuario;
         this.curso =curso;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    public LocalDateTime getFechaCreacion() {
+        return fechaCreacion;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public Usuario getAutor() {
+        return autor;
+    }
+
+    public String getCurso() {
+        return curso;
+    }
+
+    public boolean isActivo() {
+        return activo;
     }
 
     public void topicoActualizado(TopicoActualizadoDTO topicoActualizadoDTO) {

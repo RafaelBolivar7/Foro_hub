@@ -5,8 +5,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
     public record RegistroUsuarioDTO(
-            Long id, @NotBlank
-    String name,
+            Long id,
+            @NotBlank
+            String nombre,
             @NotBlank (message = "Utilice su correo electrónico como nombre de usuario")
             @Email
             String username,
@@ -17,4 +18,7 @@ import jakarta.validation.constraints.Pattern;
 
             /*Perfil perfil*/  //Para desarrollar la visualizacion de los perfiles
     ) {
+
+
+
 }
