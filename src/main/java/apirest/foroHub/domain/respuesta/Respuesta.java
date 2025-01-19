@@ -1,41 +1,47 @@
-package apirest.foroHub.domain.respuesta;
+package api.hub.domain.respuesta;
 
-import apirest.foroHub.domain.topic.Topico;
-import apirest.foroHub.domain.usuario.Usuario;
+import api.hub.domain.topico.Topico;
+import api.hub.domain.usuario.Usuario;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
+import lombok.Setter;
 import java.time.LocalDateTime;
 
+@Entity(name="Respuesta")
 @Table(name = "respuestas")
-@Entity(name = "Respuesta")
 @Getter
+@Setter
 @NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(of = "id")
 public class Respuesta {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String mensaje;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "topico_id")
+    private LocalDateTime creationDate;
+    private String solution;
+    @OneToOne
+    @JoinColumn(name="author", referencedColumnName="id")
+    private Usuario author;
+    @OneToOne
+    @JoinColumn(name="topico", referencedColumnName="id")
     private Topico topico;
-    private LocalDateTime fechaCreacion;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "autor_respuesta_id")
-    private Usuario autorRespuesta;
-    private Boolean solucion;
+    private boolean active;
 
-    public Respuesta(String mensaje, Usuario autor, Topico topico) {
-        this.mensaje = mensaje;
-        this.topico = topico;
-        this.autorRespuesta = autor;
-        this.fechaCreacion = LocalDateTime.now();
-        this.solucion = false;
+    public Respuesta(Long id, String solution, Usuario usuario, Topico topico, LocalDateTime creationDate) {
+        this.id=id;
+        this.solution=solution;
+        this.author=usuario;
+        this.topico=topico;
+        this.creationDate=LocalDateTime.now();
+    }
+
+    public void respuestaActualizada(RespuestaActualizadaDTO respuestaActualizadaDTO) {
+        if (respuestaActualizadaDTO.solution() != null){
+            this.solution=respuestaActualizadaDTO.solution();
+        }
+    }
+    public void diactivateResponse(){
+
+        this.active=false;
     }
 }
