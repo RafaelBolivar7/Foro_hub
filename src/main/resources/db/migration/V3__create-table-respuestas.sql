@@ -1,12 +1,10 @@
-
-CREATE TABLE topicos (
+CREATE TABLE respuestas (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    titulo VARCHAR(255) NOT NULL,
-    mensaje TEXT NOT NULL,
     fechaCreacion DATETIME NOT NULL,
-    status ENUM('ACTIVE', 'INACTIVE', 'RESOLVED') NOT NULL,
-    idAutor BIGINT,
-    curso VARCHAR(255) NOT NULL,
+    solucion TEXT NOT NULL,
+    autor BIGINT,
+    topico BIGINT,
     activo TINYINT NOT NULL,
-    FOREIGN KEY (idAutor) REFERENCES usuarios(id)
+    FOREIGN KEY (autor) REFERENCES usuarios(id),
+    FOREIGN KEY (topico) REFERENCES topicos(id)
 );
