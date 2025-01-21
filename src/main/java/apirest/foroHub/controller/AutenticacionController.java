@@ -29,7 +29,7 @@ public class AutenticacionController {
     @PostMapping
     public ResponseEntity autenticarUsuario(@RequestBody @Valid UsuarioDTO usuarioDTO) {
         try{
-            Authentication authToken = new UsernamePasswordAuthenticationToken(usuarioDTO.username(), usuarioDTO.password());
+            Authentication authToken = new UsernamePasswordAuthenticationToken(usuarioDTO.email(), usuarioDTO.password());
             System.out.println(authToken);
             System.out.println(usuarioDTO);
             var autenticacionUsuario = authenticationManager.authenticate(authToken);
