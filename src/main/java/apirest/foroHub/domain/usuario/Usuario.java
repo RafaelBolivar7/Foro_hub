@@ -70,11 +70,6 @@ public class Usuario implements UserDetails {
         this.activo = false;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
-    }
-
     public Long getId() {
         return id;
     }
@@ -89,6 +84,11 @@ public class Usuario implements UserDetails {
 
     public String getEmail() {
         return email;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override
@@ -118,7 +118,7 @@ public class Usuario implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return activo;
+        return true;
     }
 
 }

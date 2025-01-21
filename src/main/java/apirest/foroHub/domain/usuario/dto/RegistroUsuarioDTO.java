@@ -9,9 +9,9 @@ import jakarta.validation.constraints.Pattern;
             @NotBlank
             String nombre,
             @NotBlank (message = "Utilice su correo electrónico como nombre de usuario")
-            @Email
             String username,
             @NotBlank
+            @Email
             String email,
             @NotBlank(message = "Debe tener entre 6 y 10 caracteres.") @Pattern(regexp = "\\d{6,10}")
             String password
